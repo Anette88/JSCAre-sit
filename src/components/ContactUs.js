@@ -13,6 +13,7 @@ const options = ["Enquiry", "Complaint", "Compliment", "General Message"];
 const schema = yup.object().shape({
     title: yup.string().required("Please enter your name"),
     number: yup.number().required("Please enter your phone number"),
+    option: yup.string().required("Select one of these optioins").oneOf(options),
     content: yup.string()
             .required("Please enter your message")
             .min(10, "The message must be at least 10 characters"),
@@ -53,7 +54,7 @@ export default function ContactUs(){
         <form onSubmit={handleSubmit(onSubmit)}>
 				{serverError && <FormError>{serverError}</FormError>}
             <fieldset disabled={submitting}>
-            <p>Do you have any questions? Please fill out this form. We will get back to you within 1-2 days.</p>
+            <p>Feel free to write to us if you have questions, comments or feedback</p>
                 <div>
                     <p>Name</p>
                     <input {...register("title")} /> 
@@ -63,6 +64,17 @@ export default function ContactUs(){
                     <p>Phone Number</p>
                     <input name="number" type="number" id="number" {...register("number")} />
                     {errors.number && <span>{errors.number.message}</span>}
+                </div>
+                <div>
+                    <p>Options</p>
+                    <select name="option">
+                        <option value={options[0]}>{options[0]}</option>
+                        <option value={options[1]}>{options[1]}</option>
+                        <option value={options[2]}>{options[2]}</option>
+                        <option value={options[3]}>{options[3]}</option>
+                        
+                    </select>
+                    
                 </div>
                 <div>
                     <p>Message</p>

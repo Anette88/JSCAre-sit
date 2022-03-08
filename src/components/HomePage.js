@@ -14,7 +14,7 @@ export default function HomePage({ register }) {
             try {
                 const response = await axios.get(url);
                 console.log("response", response);
-                setPosts(response.data);
+                setPosts(response.data.cards);
 
             }   catch(error) {
                 console.log(error);
@@ -25,11 +25,14 @@ export default function HomePage({ register }) {
 
     return(
         <>
-        <h3>Pokemon cards</h3>
+        <div id="searchdiv">
+            <input className="typeahead" type="text" placeholder="Pokemons"/>
+        </div>
+
         {posts.map(function (post) {
             return <div className="pokemoncards" key={post.id}>
-                <h3>{post.name}</h3>
-                <img className="pokeimage" alt="pokemon" src={post.imageUrl}/>
+                <img className="pokeimage" alt="pokemon" src= {post.imageUrl} />
+                <button>Specific</button>
             </div>
         })}
         </>
