@@ -14,8 +14,10 @@ const options = ["Enquiry", "Complaint", "Compliment", "General Message"];
 
 const schema = yup.object().shape({
     title: yup.string().required("Please enter your name"),
-    number: yup.number().required("Please enter your phone number"),
-    option: yup.string().oneOf(options),
+    number: yup.number()
+            .required("Please enter your phone number")
+            .min(8, "8 character long"),
+    select: yup.string().oneOf(options),
     content: yup.string()
             .required("Please enter your message")
             .min(10, "The message must be at least 10 characters"),
@@ -28,7 +30,6 @@ export default function ContactUs(){
     const [submitting, setSubmitting] = useState(false);
 	const [serverError, setServerError] = useState(null);
 
-    const [changes, setChanges] = useState(false);
     const url = BASE_URL;
 
 	const history = useHistory();
@@ -68,7 +69,7 @@ export default function ContactUs(){
                 </div>
                 <div>
                     <p>Options</p>
-                    <select name="option">
+                    <select name="option" {...register("options")}>
                         <option value={options[0]}>{options[0]}</option>
                         <option value={options[1]}>{options[1]}</option>
                         <option value={options[2]}>{options[2]}</option>

@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import axios from "axios";
 import { BASE_URL } from "../constants/api";
 import CardsItem from "./CardsItem";
+import TypeAheadDropDown from "./TypeAheadDropdown";
 
 export default function HomePage({ register }) {
     const [posts, setPosts] = useState([]);
@@ -27,16 +28,21 @@ export default function HomePage({ register }) {
     return(
         <>
         <div id="searchdiv">
-            <input className="typeahead" type="text" placeholder="Pokemons"/>
+        {posts.map(function (search) {
+            <TypeAheadDropDown items={search.name} />
+        }
+        )}
         </div>
         
-
+        <h3>Pokemon cards</h3>
         {posts.map(function (post) {
             return <div className="pokemoncards" key={post.id}>
+                
                 <p>Name: {post.name}</p>
                 <img className="pokeimage" alt="pokemon" src= {post.imageUrl} />
                 
-                <CardsItem key={post.id} id={post.id} title={post.name} types={post.types}/>;
+                <CardsItem key={post.id} id={post.id} title={post.name} types={post.types} image={post.imageUrl}>
+                </CardsItem>;
                 
             </div>
         })}

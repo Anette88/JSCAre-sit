@@ -1,17 +1,18 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-function CardsItem({ id, types, supertype}) {
+function CardsItem({ id, title, supertype}) {
 	return (
 		<Link to={`detail/${id}`}>
-			<h5>{types}</h5>
+			<h5>{title}</h5>
 			<p>{supertype}</p>
+           
 		</Link>
 	);
 }
 
 CardsItem.propTypes = {
-	types: PropTypes.string.isRequired,
+	title: PropTypes.string.isRequired,
 	supertype: PropTypes.string.isRequired,
 };
 

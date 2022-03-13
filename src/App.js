@@ -7,6 +7,7 @@ import ContactUsSent from "./components/ContactUsSent";
 import Nav from "./components/layout/Nav";
 import CardSpecific from "./components/CardSpecific";
 import "./sass/style.scss";
+import Footer from "./components/layout/footer";
 
 
 function App() {
@@ -33,7 +34,10 @@ function App() {
 						</Route>
                 </Switch>
             </div>
+            
+            <Footer />
         </Router>
+        
     )
 }
 
