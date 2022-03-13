@@ -3,7 +3,10 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import HomePage from "./components/HomePage";
 import GrassPage from "./components/GrassPage";
 import ContactUs from "./components/ContactUs";
+import ContactUsSent from "./components/ContactUsSent";
 import Nav from "./components/layout/Nav";
+import CardSpecific from "./components/CardSpecific";
+import "./sass/style.scss";
 
 
 function App() {
@@ -16,12 +19,18 @@ function App() {
                     <Route exact path="/">
                         <HomePage />
                     </Route>
+                    <Route exact path="/detail/:id">
+                        <CardSpecific />
+                    </Route>
                     <Route exact path="/grass">
                         <GrassPage />
                     </Route>
                     <Route exact path="/contactus">
                         <ContactUs />
                     </Route>
+                    <Route path="/contactussent">
+							<ContactUsSent />
+						</Route>
                 </Switch>
             </div>
         </Router>

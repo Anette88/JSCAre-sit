@@ -6,6 +6,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import Heading from "./layout/Heading";
 import FormError from "../common/FormError";
 import { useHistory } from "react-router-dom";
+import axios from "axios";
+import { BASE_URL } from "../constants/api";
 
 
 const options = ["Enquiry", "Complaint", "Compliment", "General Message"];
@@ -13,7 +15,7 @@ const options = ["Enquiry", "Complaint", "Compliment", "General Message"];
 const schema = yup.object().shape({
     title: yup.string().required("Please enter your name"),
     number: yup.number().required("Please enter your phone number"),
-    option: yup.string().required("Select one of these optioins").oneOf(options),
+    option: yup.string().oneOf(options),
     content: yup.string()
             .required("Please enter your message")
             .min(10, "The message must be at least 10 characters"),
@@ -26,6 +28,9 @@ export default function ContactUs(){
     const [submitting, setSubmitting] = useState(false);
 	const [serverError, setServerError] = useState(null);
 
+    const [changes, setChanges] = useState(false);
+    const url = BASE_URL;
+
 	const history = useHistory();
 	
     
@@ -35,17 +40,13 @@ export default function ContactUs(){
             formState: { errors } 
         } = useForm({ resolver: yupResolver(schema) });
 
-    async function onSubmit(data) {
-        setSubmitting(true);
-		setServerError(null);
-
-		data.status = "publish";
+    async function onSubmit() {
         
-
-        //console.log("this data", data);
-
-
-}
+            history.push("/contactussent");
+		
+		}
+            console.log(errors);
+    
 
     return (
         <>
@@ -56,12 +57,12 @@ export default function ContactUs(){
             <fieldset disabled={submitting}>
             <p>Feel free to write to us if you have questions, comments or feedback</p>
                 <div>
-                    <p>Name</p>
+                    <p className="formp">Name</p>
                     <input {...register("title")} /> 
                     {errors.title && <span>{errors.title.message}</span>}
                 </div>
                 <div>
-                    <p>Phone Number</p>
+                    <p className="formp">Phone Number</p>
                     <input name="number" type="number" id="number" {...register("number")} />
                     {errors.number && <span>{errors.number.message}</span>}
                 </div>
@@ -77,11 +78,11 @@ export default function ContactUs(){
                     
                 </div>
                 <div>
-                    <p>Message</p>
+                    <p className="formp">Message</p>
                     <textarea {...register("content")} />
                     {errors.content && <span>{errors.content.message}</span>}
                 </div>
-                <button>{submitting ? "Submitting..." : "Send"}</button>
+                <button>Send</button>
             </fieldset>
         </form>
         

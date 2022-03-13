@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import { BASE_URL } from "../constants/api";
+import CardsItem from "./CardsItem";
 
 export default function HomePage({ register }) {
     const [posts, setPosts] = useState([]);
@@ -28,11 +29,15 @@ export default function HomePage({ register }) {
         <div id="searchdiv">
             <input className="typeahead" type="text" placeholder="Pokemons"/>
         </div>
+        
 
         {posts.map(function (post) {
             return <div className="pokemoncards" key={post.id}>
+                <p>Name: {post.name}</p>
                 <img className="pokeimage" alt="pokemon" src= {post.imageUrl} />
-                <button>Specific</button>
+                
+                <CardsItem key={post.id} id={post.id} title={post.name} types={post.types}/>;
+                
             </div>
         })}
         </>
